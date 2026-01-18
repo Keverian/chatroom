@@ -1,0 +1,17 @@
+CREATE DATABASE IF NOT EXISTS chatroom_db;
+USE chatroom_db;
+CREATE TABLE IF NOT EXISTS messages (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    user_id INT NOT NULL,
+    message TEXT NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    FOREIGN KEY (user_id) REFERENCES users(id)
+);
+CREATE TABLE IF NOT EXISTS users (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    username VARCHAR(50) NOT NULL UNIQUE,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP
+);
+
+CREATE USER IF NOT EXISTS 'chatuser'@'localhost' IDENTIFIED BY '12345';
+GRANT ALL PRIVILEGES ON chatroom_db.* TO 'chatuser'@'localhost';
